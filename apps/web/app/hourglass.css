@@ -1,0 +1,65 @@
+/* Animated hourglass. Kept in a plain CSS file (not globals.css) so the custom
+   @keyframes survive Tailwind's minifier, and out of component render so React
+   never sees a raw <style> tag. Animation runs by default; reduced motion
+   freezes it to a static half-full state. */
+
+.hg-flip {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: hg-flip 10s ease-in-out infinite;
+}
+.hg-top,
+.hg-bot {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.hg-top {
+  animation: hg-top 10s ease-in-out infinite;
+}
+.hg-bot {
+  animation: hg-bot 10s ease-in-out infinite;
+}
+.hg-stream {
+  animation: hg-stream 10s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hg-flip,
+  .hg-top,
+  .hg-bot,
+  .hg-stream {
+    animation: none;
+  }
+  .hg-top,
+  .hg-bot {
+    transform: scaleY(0.55);
+  }
+  .hg-stream {
+    opacity: 0.5;
+  }
+}
+
+/* Flip the whole timer over at each end so the loop is seamless and gravity
+   always reads downward on screen (frame 0 === frame 100%). */
+@keyframes hg-flip {
+  0%, 42% { transform: rotate(0deg); }
+  50%, 92% { transform: rotate(180deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes hg-top {
+  0% { transform: scaleY(1); }
+  42%, 50% { transform: scaleY(0.05); }
+  92%, 100% { transform: scaleY(1); }
+}
+@keyframes hg-bot {
+  0% { transform: scaleY(0.05); }
+  42%, 50% { transform: scaleY(1); }
+  92%, 100% { transform: scaleY(0.05); }
+}
+@keyframes hg-stream {
+  0%, 100% { opacity: 0; }
+  4%, 42% { opacity: 1; }
+  46%, 54% { opacity: 0; }
+  58%, 92% { opacity: 1; }
+  96% { opacity: 0; }
+}

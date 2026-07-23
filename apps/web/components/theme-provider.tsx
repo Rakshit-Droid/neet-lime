@@ -1,31 +1,29 @@
 "use client"
 
 import * as React from "react"
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes"
+import { MotionConfig } from "motion/react"
 
-function ThemeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
-  return (
-    <NextThemesProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-      {...props}
-    >
-      <ThemeHotkey />
-      {children}
-    </NextThemesProvider>
-  )
+type Theme = "light" | "dark"
+
+interface ThemeContextValue {
+  theme: Theme
+  resolvedTheme: Theme
+  setTheme: (t: Theme | "system") => void
+  toggleTheme: () => void
+}
+
+const ThemeContext = React.createContext<ThemeContextValue | null>(null)
+const STORAGE_KEY = "theme"
+
+function systemTheme(): Theme {
+  return typeof window !== "undefined" &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light"
 }
 
 function isTypingTarget(target: EventTarget | null) {
-  if (!(target instanceof HTMLElement)) {
-    return false
-  }
-
+  if (!(target instanceof HTMLElement)) return false
   return (
     target.isContentEditable ||
     target.tagName === "INPUT" ||
@@ -34,38 +32,69 @@ function isTypingTarget(target: EventTarget | null) {
   )
 }
 
-function ThemeHotkey() {
-  const { resolvedTheme, setTheme } = useTheme()
+// Self-owned theme provider. The no-flash class is applied by an inline script
+// in the server-rendered RootLayout, so this client component renders no
+// <script> of its own (which is what next-themes did and React 19 warns about).
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [theme, setThemeState] = React.useState<Theme>("light")
 
+  // Adopt whatever the pre-hydration script already put on <html>.
   React.useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.defaultPrevented || event.repeat) {
-        return
-      }
+    setThemeState(document.documentElement.classList.contains("dark") ? "dark" : "light")
+  }, [])
 
-      if (event.metaKey || event.ctrlKey || event.altKey) {
-        return
-      }
+  const apply = React.useCallback((t: Theme) => {
+    document.documentElement.classList.toggle("dark", t === "dark")
+    setThemeState(t)
+  }, [])
 
-      if (event.key.toLowerCase() !== "d") {
-        return
+  const setTheme = React.useCallback(
+    (t: Theme | "system") => {
+      if (t === "system") {
+        try {
+          localStorage.removeItem(STORAGE_KEY)
+        } catch {}
+        apply(systemTheme())
+      } else {
+        try {
+          localStorage.setItem(STORAGE_KEY, t)
+        } catch {}
+        apply(t)
       }
+    },
+    [apply],
+  )
 
-      if (isTypingTarget(event.target)) {
-        return
-      }
+  const toggleTheme = React.useCallback(() => {
+    setTheme(theme === "dark" ? "light" : "dark")
+  }, [theme, setTheme])
 
-      setTheme(resolvedTheme === "dark" ? "light" : "dark")
+  // 'd' toggles the theme (preserved from the scaffold).
+  React.useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.defaultPrevented || e.repeat || e.metaKey || e.ctrlKey || e.altKey) return
+      if (e.key.toLowerCase() !== "d") return
+      if (isTypingTarget(e.target)) return
+      toggleTheme()
     }
-
     window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [toggleTheme])
 
-    return () => {
-      window.removeEventListener("keydown", onKeyDown)
-    }
-  }, [resolvedTheme, setTheme])
+  const value = React.useMemo<ThemeContextValue>(
+    () => ({ theme, resolvedTheme: theme, setTheme, toggleTheme }),
+    [theme, setTheme, toggleTheme],
+  )
 
-  return null
+  return (
+    <ThemeContext.Provider value={value}>
+      <MotionConfig reducedMotion="user">{children}</MotionConfig>
+    </ThemeContext.Provider>
+  )
 }
 
-export { ThemeProvider }
+export function useTheme() {
+  const ctx = React.useContext(ThemeContext)
+  if (!ctx) throw new Error("useTheme must be used within ThemeProvider")
+  return ctx
+}
