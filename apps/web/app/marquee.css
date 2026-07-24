@@ -38,3 +38,20 @@
     transform: translateX(0);
   }
 }
+
+/* Chat widget typing indicator dots */
+.chat-dot {
+  animation: chat-blink 1.2s ease-in-out infinite;
+}
+@keyframes chat-blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}

@@ -7,6 +7,7 @@ import "./hourglass.css"
 import "./glass.css"
 import "./marquee.css"
 import { ThemeProvider } from "@/components/theme-provider"
+import { ChatWidget } from "@/components/chat-widget"
 import { cn } from "@workspace/ui/lib/utils"
 
 const fontSans = Geist({ subsets: ["latin"], variable: "--font-sans" })
@@ -40,7 +41,10 @@ export default function RootLayout({
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_SCRIPT}
         </Script>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+          <ChatWidget />
+        </ThemeProvider>
       </body>
     </html>
   )
