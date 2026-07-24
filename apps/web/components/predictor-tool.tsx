@@ -209,7 +209,7 @@ export function PredictorTool({ variant }: { variant: PredictorVariant }) {
           ) : result.total === 0 ? (
             <NoMatchState value={formatIndian(effRank)} />
           ) : (
-            <div className="space-y-5">
+            <div className="max-h-[26rem] space-y-5 overflow-y-auto pr-1">
               {TIER_META.map(({ tier, label, dot, chip }) => {
                 const list = groups[tier]
                 if (list.length === 0) return null
