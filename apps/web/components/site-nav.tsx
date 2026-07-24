@@ -41,7 +41,7 @@ function Dropdown({
         <IconChevronDown className="size-3.5 transition-transform group-hover:rotate-180" stroke={2.2} />
       </button>
       <div className="invisible absolute left-0 top-full z-10 w-72 translate-y-1 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-        <div className="glass rounded-xl border p-2 shadow-lg">
+        <div className="glass glass-panel rounded-xl border p-2 shadow-lg">
           {items.map((it) => (
             <a
               key={it.href}
@@ -125,7 +125,7 @@ export function SiteNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="glass fixed inset-0 top-16 z-40 overflow-y-auto px-6 py-6 md:hidden"
+            className="glass glass-panel fixed inset-0 top-16 z-40 overflow-y-auto px-6 py-6 md:hidden"
           >
             <p className="px-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Predictors</p>
             <div className="mt-2 mb-6 grid gap-1">
