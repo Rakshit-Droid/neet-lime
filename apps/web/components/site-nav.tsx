@@ -94,7 +94,6 @@ export function SiteNav() {
               Choice Filling
               <span className="rounded-full bg-primary/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-primary">Pro</span>
             </a>
-            <a href="/pricing" className="rounded-md px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground">Pricing</a>
           </div>
 
           <div className="flex items-center gap-2">
@@ -142,7 +141,6 @@ export function SiteNav() {
                 Choice Filling
                 <span className="rounded-full bg-primary/15 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary">Pro</span>
               </a>
-              <a href="/pricing" onClick={() => setOpen(false)} className="rounded-lg px-1 py-2.5 text-lg font-medium">Pricing</a>
             </div>
             <a
               href="/neet-predictor-2026"

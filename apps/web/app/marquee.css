@@ -1,0 +1,40 @@
+/* Two-row testimonial marquee. Keyframes live in this plain CSS file (not the
+   Tailwind entry) so the lightningcss minifier doesn't strip them. Each track
+   renders its cards twice; translating by -50% loops seamlessly because the two
+   halves are identical (per-card right margin keeps the pattern periodic). */
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  flex-wrap: nowrap;
+  will-change: transform;
+}
+
+.marquee-right {
+  animation: marquee-scroll-right var(--marquee-duration, 60s) linear infinite;
+}
+.marquee-left {
+  animation: marquee-scroll-left var(--marquee-duration, 60s) linear infinite;
+}
+
+/* pause the row the pointer is over */
+.marquee-pause:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-scroll-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}

@@ -5,6 +5,7 @@ import { Geist, Geist_Mono, Oxanium } from "next/font/google"
 import "@workspace/ui/globals.css"
 import "./hourglass.css"
 import "./glass.css"
+import "./marquee.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@workspace/ui/lib/utils"
 
