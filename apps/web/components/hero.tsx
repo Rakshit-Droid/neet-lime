@@ -12,6 +12,13 @@ export function Hero() {
       id="top"
       className="relative flex min-h-[100svh] items-center overflow-hidden pt-24 pb-16"
     >
+      {/* themed backdrop image, kept subtle so copy stays legible */}
+      <img
+        src="/hero-bg.png"
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-20 size-full object-cover opacity-20"
+      />
       {/* restrained lime wash behind the widget, not neon */}
       <div
         aria-hidden
