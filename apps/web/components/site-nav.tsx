@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import {
-  IconActivityHeartbeat,
   IconChevronDown,
   IconTargetArrow,
   IconMenu2,
@@ -16,13 +15,23 @@ const ease = [0.16, 1, 0.3, 1] as const
 
 function Wordmark() {
   return (
-    <a href="/" aria-label="NEET Companion home" className="flex items-center gap-2">
-      <span className="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-        <IconActivityHeartbeat className="size-5" stroke={2.2} />
-      </span>
-      <span className="text-[15px] font-semibold tracking-tight">
-        NEET<span className="text-muted-foreground"> Companion</span>
-      </span>
+    <a href="/" aria-label="NEET Companion home" className="flex items-center">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/logo-black.png"
+        alt="NEET Companion"
+        width={300}
+        height={100}
+        className="h-9 w-auto dark:hidden"
+      />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/logo-lime.png"
+        alt="NEET Companion"
+        width={300}
+        height={100}
+        className="hidden h-9 w-auto dark:block"
+      />
     </a>
   )
 }
