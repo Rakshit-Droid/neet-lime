@@ -71,6 +71,9 @@ export function PredictorTool({ variant }: { variant: PredictorVariant }) {
 
   return (
     <div className="rounded-2xl border glass-card p-6 shadow-sm">
+      <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+      {/* ================= LEFT COLUMN: inputs ================= */}
+      <div>
       {/* mode toggle (NEET predictor only) */}
       {hasModeToggle && (
         <div className="mb-5 inline-flex rounded-lg border bg-background p-1 text-sm">
@@ -157,10 +160,13 @@ export function PredictorTool({ variant }: { variant: PredictorVariant }) {
           </div>
         </div>
       )}
+      </div>
 
+      {/* ================= RIGHT COLUMN: results ================= */}
+      <div>
       {/* ---------- rank predictor output ---------- */}
       {variant === "rank-predictor" && (
-        <div className="mt-6 rounded-xl bg-muted/50 p-5">
+        <div className="rounded-xl bg-muted/50 p-5">
           <p className="text-xs uppercase tracking-wide text-muted-foreground">Predicted All India Rank</p>
           <div className="mt-1 font-mono text-4xl font-semibold tracking-tight text-primary">
             <Counter to={pred.air} live format={(n) => formatIndian(n)} />
@@ -179,7 +185,7 @@ export function PredictorTool({ variant }: { variant: PredictorVariant }) {
 
       {/* ---------- college output ---------- */}
       {showsColleges && (
-        <div className="mt-6">
+        <div>
           <div className="mb-4 flex items-center justify-between">
             <p className="text-sm text-muted-foreground">
               {effRank > 0 ? (
@@ -270,6 +276,8 @@ export function PredictorTool({ variant }: { variant: PredictorVariant }) {
           )}
         </div>
       )}
+      </div>
+      </div>
 
       <p className="mt-5 flex items-center gap-1.5 text-xs text-muted-foreground">
         <IconInfoCircle className="size-3.5" stroke={2} />

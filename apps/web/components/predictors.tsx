@@ -30,9 +30,9 @@ export function Predictors() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.05} className="mx-auto mt-10 max-w-3xl">
+        <Reveal delay={0.05} className="mx-auto mt-10 max-w-4xl">
           <LayoutGroup>
-            <div className="flex flex-wrap gap-1.5 rounded-xl border bg-background p-1.5">
+            <div className="mx-auto flex max-w-3xl flex-wrap gap-1.5 rounded-xl border bg-background p-1.5">
               {TABS.map((t) => {
                 const active = tab === t.id
                 return (
