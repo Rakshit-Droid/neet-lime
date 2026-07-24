@@ -19,10 +19,11 @@ export function Hero() {
         src="/hero-bg.png"
         alt=""
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-20 size-full object-cover opacity-20"
+        className="pointer-events-none absolute inset-0 -z-20 size-full object-cover opacity-[0.1]"
         style={{
           maskImage: "linear-gradient(to bottom, black 35%, transparent 88%)",
           WebkitMaskImage: "linear-gradient(to bottom, black 35%, transparent 88%)",
+          filter: "grayscale(0.6)",
         }}
       />
       {/* restrained lime wash behind the widget, not neon */}
@@ -31,7 +32,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(60% 50% at 78% 40%, color-mix(in oklch, var(--primary) 16%, transparent), transparent 70%)",
+            "radial-gradient(60% 50% at 78% 40%, color-mix(in oklch, var(--primary) 9%, transparent), transparent 70%)",
         }}
       />
 
