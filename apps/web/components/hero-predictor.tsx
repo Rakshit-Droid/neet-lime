@@ -67,8 +67,9 @@ export function HeroPredictor() {
   function validate(): boolean {
     const next: Partial<Record<keyof Details, string>> = {}
     if (!details.name.trim()) next.name = "Please enter your name."
-    if (!/^[6-9]\d{9}$/.test(details.mobile)) next.mobile = "Enter a valid 10-digit mobile number."
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(details.email)) next.email = "Enter a valid email address."
+    // mobile & email are optional — only validate the format when provided.
+    if (details.mobile && !/^[6-9]\d{9}$/.test(details.mobile)) next.mobile = "Enter a valid 10-digit mobile number."
+    if (details.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(details.email)) next.email = "Enter a valid email address."
     if (!details.city.trim()) next.city = "Please enter your city."
     setErrors(next)
     return Object.keys(next).length === 0
@@ -197,7 +198,7 @@ export function HeroPredictor() {
             <Field label="Student name" error={errors.name}>
               <input className="sc-input" value={details.name} onChange={(e) => setField("name", e.target.value)} placeholder="Your full name" />
             </Field>
-            <Field label="Mobile number" error={errors.mobile}>
+            <Field label="Mobile number" error={errors.mobile} optional>
               <div className="flex items-center overflow-hidden rounded-lg border bg-background focus-within:ring-2 focus-within:ring-primary/40">
                 <span className="border-r bg-muted px-3 py-2.5 text-sm text-muted-foreground">+91</span>
                 <input
@@ -210,7 +211,7 @@ export function HeroPredictor() {
                 />
               </div>
             </Field>
-            <Field label="Email address" error={errors.email}>
+            <Field label="Email address" error={errors.email} optional>
               <input type="email" className="sc-input" value={details.email} onChange={(e) => setField("email", e.target.value)} placeholder="your@email.com" />
             </Field>
             <Field label="City" error={errors.city}>
@@ -273,10 +274,13 @@ export function HeroPredictor() {
   )
 }
 
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+function Field({ label, error, optional, children }: { label: string; error?: string; optional?: boolean; children: React.ReactNode }) {
   return (
     <div className="mb-3.5 flex flex-col gap-1.5">
-      <label className="text-xs font-semibold">{label} *</label>
+      <label className="text-xs font-semibold">
+        {label}
+        {optional ? <span className="font-normal text-muted-foreground"> (optional)</span> : " *"}
+      </label>
       {children}
       {error && <p className="text-[11px] text-destructive">{error}</p>}
     </div>
