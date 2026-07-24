@@ -76,11 +76,11 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* giant wordmark — fills the width and clips at the edges */}
+      {/* giant wordmark — sized to fit the full width without clipping letters */}
       <div className="w-full overflow-hidden" aria-hidden>
-        <div className="flex select-none justify-center">
-          <span className="-mb-[0.12em] whitespace-nowrap font-heading text-[19vw] font-bold leading-[0.8] tracking-tighter">
-            NEET<span className="mx-[0.04em] font-sans">&rarr;</span>SEAT
+        <div className="flex select-none justify-center px-4">
+          <span className="-mb-[0.08em] whitespace-nowrap font-heading text-[15vw] font-bold leading-[0.85] tracking-tight">
+            NEET<span className="mx-[0.06em] font-sans">&rarr;</span>SEAT
           </span>
         </div>
       </div>
