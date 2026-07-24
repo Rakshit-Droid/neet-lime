@@ -70,10 +70,10 @@ export function PredictorTool({ variant }: { variant: PredictorVariant }) {
   const pct = (marks / MAX_MARKS) * 100
 
   return (
-    <div className="rounded-2xl border glass-card p-6 shadow-sm">
-      <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
-      {/* ================= LEFT COLUMN: inputs ================= */}
-      <div>
+    <div>
+      <div className="grid items-start gap-6 lg:grid-cols-2 lg:gap-8">
+      {/* ================= LEFT CARD: inputs ================= */}
+      <div className="rounded-2xl border glass-card p-6 shadow-sm">
       {/* mode toggle (NEET predictor only) */}
       {hasModeToggle && (
         <div className="mb-5 inline-flex rounded-lg border bg-background p-1 text-sm">
@@ -162,8 +162,8 @@ export function PredictorTool({ variant }: { variant: PredictorVariant }) {
       )}
       </div>
 
-      {/* ================= RIGHT COLUMN: results ================= */}
-      <div>
+      {/* ================= RIGHT CARD: results ================= */}
+      <div className="rounded-2xl border glass-card p-6 shadow-sm">
       {/* ---------- rank predictor output ---------- */}
       {variant === "rank-predictor" && (
         <div className="rounded-xl bg-muted/50 p-5">
