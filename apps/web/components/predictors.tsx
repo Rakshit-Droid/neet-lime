@@ -30,7 +30,7 @@ export function Predictors() {
           </p>
         </Reveal>
 
-        <Reveal delay={0.05} className="mx-auto mt-10 max-w-2xl">
+        <Reveal delay={0.05} className="mx-auto mt-10 max-w-3xl">
           <LayoutGroup>
             <div className="flex flex-wrap gap-1.5 rounded-xl border bg-background p-1.5">
               {TABS.map((t) => {
