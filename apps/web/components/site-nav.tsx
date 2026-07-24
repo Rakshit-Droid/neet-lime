@@ -78,7 +78,14 @@ export function SiteNav() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className={`transition-colors duration-300 ${scrolled ? "glass border-b" : "bg-background"}`}>
+      <div
+        className={`transition-colors duration-300 glass ${scrolled ? "border-b" : ""}`}
+        style={{
+          backgroundColor: "color-mix(in oklch, var(--background) var(--header-opacity, 100%), transparent)",
+          backdropFilter: "blur(12px) saturate(1.6)",
+          WebkitBackdropFilter: "blur(12px) saturate(1.6)",
+        }}
+      >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           <Wordmark />
 

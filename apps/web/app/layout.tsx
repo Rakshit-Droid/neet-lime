@@ -8,6 +8,7 @@ import "./glass.css"
 import "./marquee.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ChatWidget } from "@/components/chat-widget"
+import { HeaderOpacitySlider } from "@/components/header-opacity-slider"
 import { cn } from "@workspace/ui/lib/utils"
 
 const fontSans = Geist({ subsets: ["latin"], variable: "--font-sans" })
@@ -44,6 +45,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           <ChatWidget />
+          <HeaderOpacitySlider />
         </ThemeProvider>
       </body>
     </html>
